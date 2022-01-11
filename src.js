@@ -36,6 +36,7 @@ const array = [
   [4, 5, 6, 8, 1],
   [7, 8, 9, 4, 5]
 ];
+ideal = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 function solution(matrix, array) {result = []
     for (let i = 0; matrix[0].length -3 >= i; i++) {
     const subarr = matrix.map((row) => row.slice(i, i + 3)).flat();
@@ -51,31 +52,36 @@ console.log(solution(array))
 //не превышал количество символов в строке. Текст должен быть заключен
 //символ * со всех сторон.
 
-let text = [
+const text = [
   ["Hello", "world"],
   ["Brad", "came", "to", "dinner", "with", "us"],
   ["He", "loves", "tacos"]
 ];
-let right = text[1].slice(0, text[1].length/2);
-let left = text[1].slice(text[1].length/2);
-let temp = text[2];
-text[1] = right;
-text[2] = left;
-text[3] = temp;
-let str = "";
-nam = 0;
-for (let i = 0; i < 4; i++) {
-  for (let c = 0; c < 1; c++) {
-      if (str < 16) {  
-          text[nam].unshift("*");
-          text[nam].push(" *");       
-      }
-      else {
-          text[nam].unshift("* ");
-          text[nam].push("*");
-      }
-  }
-  nam++;
+
+let array = text.flat()
+
+
+let strSymbol = '*';
+let output = []
+let str1 = ''
+for (i = 1; i < 19; i++) {
+  str1 = str1.concat(strSymbol)
 }
 
-console.log(text);
+let str2 = ''
+str2 = str2.concat(strSymbol, array[0], ' ', array[1], ' ', ' ', ' ', ' ', ' ', strSymbol)
+
+let str3 = ''
+str3 = str3.concat(strSymbol, ' ', ' ', ' ', ' ', array[2], ' ', array[3], ' ', array[4], strSymbol)
+
+let str4 = ''
+str4 = str4.concat(strSymbol, ' ', ' ', array[5], ' ', array[6], ' ', array[7], strSymbol)
+
+let str5 = ''
+str5 = str5.concat(strSymbol, array[8], ' ', array[9], ' ', array[10], ' ', ' ', strSymbol)
+
+output.push(str1, str2, str3, str4, str5, str1)
+console.log(output)
+
+
+
