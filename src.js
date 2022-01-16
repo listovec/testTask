@@ -37,7 +37,7 @@ const array = [
   [7, 8, 9, 4, 5]
 ];
 ideal = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-function solution(matrix, array) {result = []
+function solution(matrix) {result = []
     for (let i = 0; matrix[0].length -3 >= i; i++) {
     const subarr = matrix.map((row) => row.slice(i, i + 3)).flat();
         result.push(ideal.every(v => subarr.includes(v)))
@@ -58,30 +58,43 @@ const text = [
   ["He", "loves", "tacos"]
 ];
 
-let array = text.flat()
+const starSymbol = "*";
 
+const generateRow = (sentence, direction, limit) => {
+  const emptySpace = Array(limit - sentence.length)
+    .fill(" ")
+    .join("");
+  return [
+    `*${direction === "RIGHT" ? emptySpace : ""}${sentence}${
+      direction === "LEFT" ? emptySpace : ""
+    }*`
+  ];
+};
 
-let strSymbol = '*';
-let output = []
-let str1 = ''
-for (i = 1; i < 19; i++) {
-  str1 = str1.concat(strSymbol)
-}
+const formattingText = (targetArray, directions, limit) => {
+  const result = [];
 
-let str2 = ''
-str2 = str2.concat(strSymbol, array[0], ' ', array[1], ' ', ' ', ' ', ' ', ' ', strSymbol)
+  targetArray.forEach((sentence, index) => {
+    let concattedSentence = "";
+    const direction = directions[index];
 
-let str3 = ''
-str3 = str3.concat(strSymbol, ' ', ' ', ' ', ' ', array[2], ' ', array[3], ' ', array[4], strSymbol)
+    sentence.forEach((word, i) => {
+      const formattedWord = `${i !== 0 ? " " : ""}${word}`;
+      if (formattedWord.length + concattedSentence.length > limit) {
+        result.push(generateRow(concattedSentence, direction, limit));
+        concattedSentence = "";
+      }
+      concattedSentence += `${concattedSentence ? " " : ""}${word}`;
+    });
 
-let str4 = ''
-str4 = str4.concat(strSymbol, ' ', ' ', array[5], ' ', array[6], ' ', array[7], strSymbol)
+    result.push(generateRow(concattedSentence, direction, limit));
+  });
 
-let str5 = ''
-str5 = str5.concat(strSymbol, array[8], ' ', array[9], ' ', array[10], ' ', ' ', strSymbol)
+  return [
+    Array(limit + 2).fill(starSymbol),
+    ...result,
+    Array(limit + 2).fill(starSymbol)
+  ];
+};
 
-output.push(str1, str2, str3, str4, str5, str1)
-console.log(output)
-
-
-
+console.log(formattingText(text, ["LEFT", "RIGHT", "LEFT"], 16));
