@@ -64,11 +64,9 @@ const generateRow = (sentence, direction, limit) => {
   const emptySpace = Array(limit - sentence.length)
     .fill(" ")
     .join("");
-  return [
-    `*${direction === "RIGHT" ? emptySpace : ""}${sentence}${
-      direction === "LEFT" ? emptySpace : ""
-    }*`
-  ];
+  return `*${direction === "RIGHT" ? emptySpace : ""}${sentence}${
+    direction === "LEFT" ? emptySpace : ""
+  }*`;
 };
 
 const formattingText = (targetArray, directions, limit) => {
@@ -91,9 +89,13 @@ const formattingText = (targetArray, directions, limit) => {
   });
 
   return [
-    Array(limit + 2).fill(starSymbol),
+    Array(limit + 2)
+      .fill(starSymbol)
+      .join(""),
     ...result,
-    Array(limit + 2).fill(starSymbol)
+    Array(limit + 2)
+      .fill(starSymbol)
+      .join("")
   ];
 };
 
